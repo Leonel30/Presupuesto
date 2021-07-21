@@ -1,22 +1,16 @@
 const ingresos = [
-    new Ingreso("Ejemplo ingreso (borrar para usar)",2100),
-    
-    
+    // new Ingreso("Ejemplo ingreso (borrar para usar)",2100),  
 ]
 const egresos = [
-    new Egreso("Ejemplo egreso(borrar para usar)",1000),
-    
-    
+    // new Egreso("Ejemplo egreso(borrar para usar)",1000),  
 ]
 
 let cargarApp = ()=> {
     cargarCabecero();
     cargarIngresos();
     cargarEgresos();
-    
 }
-
-let totalIngresos = ()=>{
+let totalIngresos =()=>{
 
     let ingresosTotales = 0;
 
@@ -39,10 +33,16 @@ let totalEgresos = ()=> {
 let cargarCabecero = ()=> {
     let presupuestoTotal = totalIngresos() - totalEgresos();
     let porcentaje = totalEgresos() / totalIngresos() ;
+    if ( isNaN(porcentaje)){
+        document.getElementById("porcentaje").innerHTML = `%0.00`;
+    }else{
+        document.getElementById("porcentaje").innerHTML =formatoPorcentaje(porcentaje);
+    }
     document.getElementById("presupuesto").innerHTML =formatoMoneda(presupuestoTotal);
-    document.getElementById("porcentaje").innerHTML =formatoPorcentaje(porcentaje);
     document.getElementById("ingreso").innerHTML =formatoMoneda(totalIngresos());
     document.getElementById("egreso").innerHTML =formatoMoneda(totalEgresos());
+    
+    
 }
 const formatoMoneda  = (valor) => {
     return valor.toLocaleString('es-AR',{style:'currency', currency:'ARS',minimumFractionDigits:2})
